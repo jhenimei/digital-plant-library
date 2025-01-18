@@ -1,5 +1,6 @@
 import streamlit as st
 import df
+from PIL import Image
 
 st.title("Maricopa Native Seed Library at CNUW")
 st.markdown(
@@ -7,89 +8,93 @@ st.markdown(
 )
 
 qry = ''
-search_criteria = True
 
-if st.button("View All Available Plant Seeds", type='primary'):
-    search_criteria = False
-    qry = ''
+search_criteria = st.toggle("View all Native Seeds", value=False)
 
-with st.popover("Search Specific Plant Seeds"):
-    search_criteria = True
-    # SEED TYPE CRITERIA
-    all_seed_types = st.checkbox("View All Available Seed Types", False)
-    if all_seed_types == True:
-        qry += ''
-    else: 
-        seed_type = st.selectbox("What **type** of plant(s) are you looking for?", df.seed_types_options, index=None, placeholder='Select Type')
+start_search = False
 
-        if seed_type == None:
+if search_criteria == False:
+    with st.container(border=True):
+        st.subheader("Search for Specific Native Plant Seeds")
+        # SEED TYPE CRITERIA
+        all_seed_types = st.checkbox("View All Available Seed Types", False)
+        if all_seed_types == True:
             qry += ''
-        elif qry == '':
-            qry += 'Type == "' + seed_type + '"'
-        elif qry != '':
-            qry += ' and Type == "' + seed_type + '" '
+        else: 
+            seed_type = st.selectbox("What **type** of plant(s) are you looking for?", df.seed_types_options, index=None, placeholder='Select Type')
 
-    # SEED DIFFICULTY CRITERIA
-    all_seed_difficulties = st.checkbox("View All Available Seeds for Any Gardening Experience Level", False)
-    if all_seed_difficulties == True:
-        qry += ''
-    else: 
-        seed_difficulty = st.selectbox("How experienced are you with gardening?", ["Beginner - None or limited experience", "Intermediate - Average experience", "Pro - Very experienced"], index=None, placeholder="Select Gardening Experience Level")
+            if seed_type == None:
+                qry += ''
+            elif qry == '':
+                qry += 'Type == "' + seed_type + '"'
+            elif qry != '':
+                qry += ' and Type == "' + seed_type + '" '
 
-        if seed_difficulty == "Beginner - None or limited experience":
-            difficulty = ['Easy']
-        elif seed_difficulty == "Intermediate - Average experience":
-            difficulty = ['Easy', 'Medium']
-        elif "Pro - Very experienced":
-            difficulty = ['Easy', 'Medium', 'Difficult', 'Unknown']
-
-        if seed_difficulty == None:
+        # SEED DIFFICULTY CRITERIA
+        all_seed_difficulties = st.checkbox("View All Available Seeds for Any Gardening Experience Level", False)
+        if all_seed_difficulties == True:
             qry += ''
-        elif qry == '':
-            qry += 'Difficulty in ' + f'{difficulty}' + ''
-        elif qry != '':
-            qry += ' and Difficulty in ' + f'{difficulty} ' + ''
+        else: 
+            seed_difficulty = st.selectbox("How experienced are you with gardening?", ["Beginner - None or limited experience", "Intermediate - Average experience", "Pro - Very experienced"], index=None, placeholder="Select Gardening Experience Level")
 
-    # SEED SUN AMOUNT CRITERIA
-    all_seed_sun_amt = st.checkbox("View All Available Seeds for Any Amount of Sunlight", False)
-    if all_seed_sun_amt == True:
-        qry += ''
-    else: 
-        sun_amt = st.selectbox("How much sunlight can the plant(s) get in your home garden?", df.seed_sun_amt_options, index=None, placeholder='Select Sun Amount')
+            if seed_difficulty == "Beginner - None or limited experience":
+                difficulty = ['Easy']
+            elif seed_difficulty == "Intermediate - Average experience":
+                difficulty = ['Easy', 'Medium']
+            elif "Pro - Very experienced":
+                difficulty = ['Easy', 'Medium', 'Difficult', 'Unknown']
 
-        if sun_amt == None:
+            if seed_difficulty == None:
+                qry += ''
+            elif qry == '':
+                qry += 'Difficulty in ' + f'{difficulty}' + ''
+            elif qry != '':
+                qry += ' and Difficulty in ' + f'{difficulty} ' + ''
+
+        # SEED SUN AMOUNT CRITERIA
+        all_seed_sun_amt = st.checkbox("View All Available Seeds for Any Amount of Sunlight", False)
+        if all_seed_sun_amt == True:
             qry += ''
-        elif qry == '':
-            qry += 'SunAmt == "' + sun_amt + '"'
-        elif qry != '':
-            qry += ' and SunAmt == "' + sun_amt + '" '  
+        else: 
+            sun_amt = st.selectbox("How much sunlight can the plant(s) get in your home garden?", df.seed_sun_amt_options, index=None, placeholder='Select Sun Amount')
 
-    # SEED WATER AMOUNT CRITERIA
-    all_seed_water_amt = st.checkbox("View All Available Seeds for Any Amount of Water", False)
-    if all_seed_water_amt == True:
-        qry += ''
-    else: 
-        water_amt = st.selectbox("How much water can you provide the plant(s) on average?", df.seed_water_amt_options, index=None, placeholder="Select Water Amount")
+            if sun_amt == None:
+                qry += ''
+            elif qry == '':
+                qry += 'SunAmt == "' + sun_amt + '"'
+            elif qry != '':
+                qry += ' and SunAmt == "' + sun_amt + '" '  
 
-        if water_amt == None:
+        # SEED WATER AMOUNT CRITERIA
+        all_seed_water_amt = st.checkbox("View All Available Seeds for Any Amount of Water", False)
+        if all_seed_water_amt == True:
             qry += ''
-        elif qry == '':
-            qry += 'WaterAmt == "' + water_amt + '"'
-        elif qry != '':
-            qry += ' and WaterAmt == "' + water_amt + '" '
+        else: 
+            water_amt = st.selectbox("How much water can you provide the plant(s) on average?", df.seed_water_amt_options, index=None, placeholder="Select Water Amount")
 
-    if st.button("Search", type='primary'):
-        None
+            if water_amt == None:
+                qry += ''
+            elif qry == '':
+                qry += 'WaterAmt == "' + water_amt + '"'
+            elif qry != '':
+                qry += ' and WaterAmt == "' + water_amt + '" '
+
+        if st.button("Search", type='primary'):
+            start_search = True
+
+elif search_criteria == True:
+    qry = ''    
+    
 
 # display seed profiles    
 with st.container():
+    info_slot = st.empty()
+
     seed_profiles = df.get_filtered_profiles(qry)
     num_of_profiles = len(seed_profiles)
     total_profiles = len(df.seed_profiles_df)
     num_of_profile_columns = 2
     rows = df.create_seed_profile_columns(seed_profiles, num_of_profile_columns)
-
-    st.caption(f"Showing {num_of_profiles} out of {total_profiles} native seed packets")
 
     profile_columns = st.columns(num_of_profile_columns)
 
@@ -104,6 +109,10 @@ with st.container():
                     profile_id = profile.loc['Seed ID']
                     st.subheader(profile.loc['Common Name'])
                     st.markdown(f"*{profile.loc['Botanical Name']}*")
+
+                    st.image(Image.open(profile.loc['Img']))
+                    st.markdown(f"<p style='text-align: center;'>{profile.loc['Author']}<p>", unsafe_allow_html=True)
+
                     st.markdown(f"""
                                     **Type:** {profile.loc['Type']}
                                     <br>
@@ -120,11 +129,18 @@ with st.container():
             for row in range(rows):
                 add_row(row)
 
-    if search_criteria == False and qry != '':
-        st.warning("Search Criteria cleared. Viewing all available native seed packets.")
+    if search_criteria == True:
+        with info_slot.container():
+            st.warning("Search Criteria cleared. Viewing all available native seed packets.")
+            st.caption(f"Showing {num_of_profiles} out of {total_profiles} native seed packets")
+        qry = ''
         create_rows()
 
-    elif search_criteria == True:
+    elif search_criteria == False and start_search == True:
+        with info_slot.container():
+            if num_of_profiles == 0:
+                st.warning("Sorry, we don't have native seed plants for your specific search right now. Edit your search to check out something else!")
+            st.caption(f"Showing {num_of_profiles} out of {total_profiles} native seed packets")
         create_rows()
-        df.full_seed_profiles_df
-        
+
+    
