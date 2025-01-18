@@ -1,6 +1,5 @@
 import streamlit as st
 import df
-from PIL import Image
 
 st.title("Maricopa Native Seed Library at CNUW")
 st.markdown(
@@ -110,7 +109,7 @@ with st.container():
                     st.subheader(profile.loc['Common Name'])
                     st.markdown(f"*{profile.loc['Botanical Name']}*")
 
-                    st.image(Image.open(profile.loc['Img']))
+                    st.image(profile.loc['Img'])
                     st.markdown(f"<p style='text-align: center;'>{profile.loc['Author']}<p>", unsafe_allow_html=True)
 
                     st.markdown(f"""
