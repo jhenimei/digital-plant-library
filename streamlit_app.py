@@ -3,7 +3,7 @@ import df
 
 st.title("Maricopa Native Seed Library at CNUW")
 st.markdown(
-    "Check out the the plant seeds the **Center for Native and Urban Wildlife** currently have available!"
+    "Check out the the plant seeds the **Center for Native and Urban Wildlife** currently has available!"
 )
 
 qry = ''
@@ -14,13 +14,18 @@ start_search = False
 
 if search_criteria == False:
     with st.container(border=True):
-        st.subheader("Search for Specific Native Plant Seeds")
+        st.header("Find Native Plants")
+        st.text("Answer a few questions to find a plant that suits what you want!")
+        
+        st.write("---")
+
         # SEED TYPE CRITERIA
-        all_seed_types = st.checkbox("View All Available Seed Types", False)
+        st.subheader("What type of plant do you want?")
+        all_seed_types = st.checkbox("Any type of plant is fine", False)
         if all_seed_types == True:
             qry += ''
         else: 
-            seed_type = st.selectbox("What **type** of plant(s) are you looking for?", df.seed_types_options, index=None, placeholder='Select Type')
+            seed_type = st.selectbox("Select a type of plant", df.seed_types_options, index=None, placeholder='Select Type')
 
             if seed_type == None:
                 qry += ''
@@ -29,54 +34,81 @@ if search_criteria == False:
             elif qry != '':
                 qry += ' and Type == "' + seed_type + '" '
 
+        st.write("---")
+
         # SEED DIFFICULTY CRITERIA
-        all_seed_difficulties = st.checkbox("View All Available Seeds for Any Gardening Experience Level", False)
-        if all_seed_difficulties == True:
+        st.subheader("How experienced are you with gardening?")
+        seed_difficulty = st.selectbox("Select your experience level", ["Beginner - None or limited experience", "Intermediate - Average experience", "Pro - Very experienced"], index=None, placeholder="Select Gardening Experience Level")
+
+        if seed_difficulty == "Beginner - None or limited experience":
+            difficulty = ['Easy']
+        elif seed_difficulty == "Intermediate - Average experience":
+            difficulty = ['Easy', 'Medium']
+        elif seed_difficulty == "Pro - Very experienced":
+            difficulty = ['Easy', 'Medium', 'Difficult', 'Unknown']
+
+        if seed_difficulty == None:
             qry += ''
-        else: 
-            seed_difficulty = st.selectbox("How experienced are you with gardening?", ["Beginner - None or limited experience", "Intermediate - Average experience", "Pro - Very experienced"], index=None, placeholder="Select Gardening Experience Level")
+        elif qry == '':
+            qry += 'Difficulty in ' + f'{difficulty}' + ''
+        elif qry != '':
+            qry += ' and Difficulty in ' + f'{difficulty} ' + ''
 
-            if seed_difficulty == "Beginner - None or limited experience":
-                difficulty = ['Easy']
-            elif seed_difficulty == "Intermediate - Average experience":
-                difficulty = ['Easy', 'Medium']
-            elif "Pro - Very experienced":
-                difficulty = ['Easy', 'Medium', 'Difficult', 'Unknown']
-
-            if seed_difficulty == None:
-                qry += ''
-            elif qry == '':
-                qry += 'Difficulty in ' + f'{difficulty}' + ''
-            elif qry != '':
-                qry += ' and Difficulty in ' + f'{difficulty} ' + ''
+        st.write("---")
 
         # SEED SUN AMOUNT CRITERIA
-        all_seed_sun_amt = st.checkbox("View All Available Seeds for Any Amount of Sunlight", False)
+        st.subheader("How much sunlight can the plant(s) get in your home garden?")
+
+        all_seed_sun_amt = st.checkbox("I can work with either full sun or part shade plants", False)
         if all_seed_sun_amt == True:
             qry += ''
         else: 
-            sun_amt = st.selectbox("How much sunlight can the plant(s) get in your home garden?", df.seed_sun_amt_options, index=None, placeholder='Select Sun Amount')
+            sun_amt = st.selectbox("Select sunlight", ["Full Sunlight Only", "Full or Partial Sunlight", "Partial Sunlight Only"], index=None, placeholder='Select Sunlight Amount')
+
+            if sun_amt == "Full Sunlight Only":
+                sun_amt_selected = ['Full']
+            elif sun_amt == "Full or Partial Sunlight":
+                sun_amt_selected = ['Full or Partial']
+            elif sun_amt == "Partial Sunlight Only":
+                sun_amt_selected = ['Partial']
 
             if sun_amt == None:
                 qry += ''
             elif qry == '':
-                qry += 'SunAmt == "' + sun_amt + '"'
+                qry += 'SumAmt in ' + f'{sun_amt_selected}' + ''
             elif qry != '':
-                qry += ' and SunAmt == "' + sun_amt + '" '  
+                qry += ' and SunAmt in ' + f'{sun_amt_selected}' + ''
+
+        st.write("---")
 
         # SEED WATER AMOUNT CRITERIA
-        all_seed_water_amt = st.checkbox("View All Available Seeds for Any Amount of Water", False)
+        st.subheader("Do you want a high water maintenance or low water maintenance plant?")
+
+        all_seed_water_amt = st.checkbox("I can work with any water maintenance level", False)
         if all_seed_water_amt == True:
             qry += ''
         else: 
-            water_amt = st.selectbox("How much water can you provide the plant(s) on average?", df.seed_water_amt_options, index=None, placeholder="Select Water Amount")
+            water_amt = st.selectbox("Select water maintenance level", ["High Water Maintenance", "Moderate to High Water Maintenance", "Moderate Water Maintenance", "Low to Moderate Water Maintenance", "Low Water Maintenance", "Very Low Water Maintenance"], index=None, placeholder="Select Maintenance Level")
+
+            if water_amt == "High Water Maintenance":
+                water_amt_selected = ['High']
+            elif water_amt == "Moderate to High Water Maintenance":
+                water_amt_selected = ['Moderate to High']
+            elif water_amt == "Moderate Water Maintenance":
+                water_amt_selected = ['Moderate']
+            elif water_amt == "Low to Moderate Water Maintenance":
+                water_amt_selected = ['Low to Moderate']
+            elif water_amt == "Low Water Maintenance":
+                water_amt_selected = ['Low']
+            elif water_amt == "Very Low Water Maintenance":
+                water_amt_selected = ['Very Low']
 
             if water_amt == None:
                 qry += ''
             elif qry == '':
-                qry += 'WaterAmt == "' + water_amt + '"'
+                qry += 'WaterAmt in ' + f'{water_amt_selected}' + ''
             elif qry != '':
-                qry += ' and WaterAmt == "' + water_amt + '" '
+                qry += ' and WaterAmt in ' + f'{water_amt_selected}' + ''
 
         if st.button("Search", type='primary'):
             start_search = True
