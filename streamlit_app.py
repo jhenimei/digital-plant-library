@@ -111,7 +111,10 @@ if search_criteria == False:
                 qry += ' and WaterAmt in ' + f'{water_amt_selected}' + ''
 
         if st.button("Search", type='primary'):
-            start_search = True
+            if qry == '':
+                st.warning("Search criteria can't be empty! Please answer select from at least one dropdown list.")
+            else: 
+                start_search = True
 
 elif search_criteria == True:
     qry = ''    
