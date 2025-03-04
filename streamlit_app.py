@@ -194,7 +194,7 @@ with find_plants_tab:
 
         # gets plant profiles 
         num_of_profiles = len(get_filtered_profiles)
-        total_profiles = len(df.plant_profiles_df)
+        total_profiles = len(df.get_filtered_profiles(""))
 
         # how profiles will display
         num_of_profile_columns = 2
@@ -257,7 +257,7 @@ with all_plants_tab:
         info_slot = st.empty()
 
         # gets plant profiles
-        total_profiles = len(df.plant_profiles_df)
+        total_profiles = len(df.get_filtered_profiles(""))
 
         # determines how profiles will display
         num_of_profile_columns = 2
