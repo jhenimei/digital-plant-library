@@ -89,18 +89,17 @@ with find_plants_tab:
 
         # gets plant size value for filter
         if plant_size == "my garden, on the ground":
-            size_value = 'Large'
+            size_value = 'all'
         elif plant_size == "a container":
-            size_value = 'Small'
+            size_value = 'Container Compatible'
 
         # creates query for plant size
-        if plant_size == None:
+        if plant_size == None or size_value == 'all':
             qry += ''
         elif qry == '':
-            qry += 'Size == "' + size_value + '"'
+            qry += 'PlantSize == "' + size_value + '"'
         elif qry != '':
-            qry += ' and Size == "' + size_value + '" '
-
+            qry += ' and PlantSize == "' + size_value + '" '
 
         # sun amount criteria
         plant_sun_amount = st.selectbox("I also prefer a plant that can handle...", ["full, direct sunlight", "partial sunlight and shade", "either full or partial sunlight"], index=None, placeholder="Select how much sun the plant will get")
@@ -148,11 +147,11 @@ with find_plants_tab:
 
         # gets plant wildlife value for filter
         if plant_wildlife == "native bees":
-            plant_wildlife_value = 'Native Bees'
+            plant_wildlife_value = ['Native Bees', 'Native Bees and Butterflies', 'Native Bees and Hummingbirds', 'Native Bees, Hummingbirds, and Butterflies']
         elif plant_wildlife == "hummingbirds":
-            plant_wildlife_value = 'Hummingbirds'
+            plant_wildlife_value = ['Hummingbirds', 'Native Bees and Hummingbirds', 'Hummingbirds and Butterflies', 'Native Bees, Hummingbirds, and Butterflies']
         elif plant_wildlife == "butterflies":
-            plant_wildlife_value = 'Butterflies'
+            plant_wildlife_value = ['Butterflies', 'Hummingbirds and Butterflies', 'Native Bees and Hummingbirds', 'Native Bees, Hummingbirds, and Butterflies']
         elif plant_wildlife == "any native wildlife":
             plant_wildlife_value = 'all'
 
@@ -160,9 +159,9 @@ with find_plants_tab:
         if plant_wildlife == None or plant_wildlife_value == 'all':
             qry += ''
         elif qry == '':
-            qry += 'WildlifeValue == "' + plant_wildlife_value + '"'
+            qry += f"WildlifeBenefit in {plant_wildlife_value}"
         elif qry != '':
-            qry += ' and WildlifeValue == "' + plant_wildlife_value + '" '
+            qry += f" and WildlifeBenefit in {plant_wildlife_value}"
 
 
         # experience level
@@ -236,6 +235,10 @@ with find_plants_tab:
                                         **Type:** {filtered_profile.loc['Type']}
                                         <br>
                                         **Germination Difficulty:** {filtered_profile.loc['Difficulty']}
+                                        <br>
+                                        **Where can you plant it?** {filtered_profile.loc['PlantSize']}
+                                        <br>
+                                        **Attracts:** {filtered_profile.loc['WildlifeBenefit']}
                                         """, unsafe_allow_html=True)
                         st.markdown(f"""**CARE INFORMATION** 
                                         <br>
@@ -248,9 +251,6 @@ with find_plants_tab:
         def create_filtered_rows():
             for row in range(filtered_profile_rows):
                 add_filtered_row(row)
-
-
-
 
 
 # VIEW ALL PLANTS TAB
@@ -277,7 +277,7 @@ with all_plants_tab:
         # function to add row 
         def add_row(row):
             for col in profile_columns:
-                index = row * total_profiles + profile_columns.index(col)
+                index = row * num_of_profile_columns + profile_columns.index(col)
 
                 if index < total_profiles:
                     profile = get_all_profiles.iloc[index]
@@ -299,6 +299,10 @@ with all_plants_tab:
                                         **Type:** {profile.loc['Type']}
                                         <br>
                                         **Germination Difficulty:** {profile.loc['Difficulty']}
+                                        <br>
+                                        **Where can you plant it?** {profile.loc['PlantSize']}
+                                        <br>
+                                        **Attracts:** {profile.loc['WildlifeBenefit']}
                                         """, unsafe_allow_html=True)
                         st.markdown(f"""**CARE INFORMATION** 
                                         <br>

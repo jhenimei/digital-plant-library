@@ -2,42 +2,42 @@ import pandas as pd
 
 # list of plant data
 plant_profiles_list = [
-    ['COR TIN', 'Plains Coreopsis', 'Coreopsis Tinctoria', 'ANN', 'EAS', 'FU', 'MO'],
-    ['PRO PAR', 'Devil\'s Claw', 'Proboscidea Parviflora', 'ANN', 'MED', 'FP', 'LM'],
-    ['BOU CUR', 'Side Oats Gramma', 'Bouteloua Curtipendula', 'GRA', 'EAS', 'FP', 'LO'],
-    ['HIL RIG', 'Big Galleta Grass', 'Hilaria Rigda', 'GRA', 'EAS', 'FU', 'LO'],
-    ['CON GRE', 'Gregg\'s Mistflower', 'Concoclinium Greggi', 'GRO', 'EAS', 'PA', 'MO'],
-    ['BAH PAR', 'Parish\'s Goldeneye', 'Bahiopsis Parishii', 'SHR', 'EAS', 'FU', 'LM'],
-    ['VAU CAL', 'Arizona Rosewood', 'Vauquelinia Californica', 'SHR', 'EAS', 'FP', 'LO'],
-    ['ABU PAL', 'Superstition Mallow', 'Abutilon Palmeri', 'SHR', 'EAS', 'FU', 'LO'],
-    ['ENC FAR', 'Brittlebush', 'Encelia Farinosa var Phenicodonta', 'SHR', 'EAS', 'FU', 'VL'],
-    ['DOD VIS', 'Hopbush', 'Dodonaea Viscosa', 'SHR', 'MED', 'FU', 'LO'],
-    ['CAL ERI', 'Pink Fairy Duster', 'Calliandra Eriphylla', 'SHR', 'MED', 'FU', 'LO'],
-    ['ACO WRI', 'Pink Perezia', 'Acourtia Wrightii', 'SHR', 'UNK', 'PA', 'MO'],
-    ['ABU INC', 'Pelotazo', 'Abutilon Incanum', 'SHR', 'UNK', 'FU', 'LO'],
-    ['BEB JUN', 'Rough Sweetbush', 'Bebbia Juncea Aspera', 'SHR', 'EAS', 'FP', 'LO'],
-    ['SPH AMB', 'Desert Globemallow', 'Sphaeralcea Ambigua', 'SHR', 'EAS', 'FU', 'VL'],
-    ['GOS THU', 'Wild Cotton', 'Gossypium Thurberi', 'SHR', 'UNK', 'FP', 'LO'],
-    ['THY PEN', 'Paralenna', 'Thymophylia Pentachaeta', 'SUB', 'EAS', 'FP', 'LO'],
-    ['ERI DIV', 'Spreading Daisy', 'Erigeron Divergens', 'SUB', 'EAS', 'FP', 'LO'],
-    ['SEN COV', 'Desert Senna', 'Senna Covesii', 'SUB', 'EAS', 'FU', 'VL'],
-    ['PRO VEL', 'Velvet Mesquite', 'Prosopis Velutina', 'TRE', 'MED', 'FU', 'LO'],
-    ['PAR FLO', 'Blue Paloverde', 'Parkinsonia Florida', 'TRE', 'DIF', 'FU', 'LO'],
-    ['STR ODO', 'Screwbean Mesquite', 'Strombocarpa Odorata', 'TRE', 'EAS', 'UNK', 'LO'],
-    ['CHI LIN', 'Desert Willow', 'Chilopsis Linearis', 'TRE', 'EAS', 'FU', 'LO'],
-    ['CHI LIN ARC', 'Native Desert Willow', 'Chilopsis Linearis Arcuata', 'TRE', 'EAS', 'FU', 'LO'],
-    ['OLN TES', 'Ironwood', 'Olneya Tesota', 'TRE', 'MED', 'FU', 'LO'],
-    ['PAR MIC', 'Foothills Palo Verde', 'Parkinsonia Microphylla', 'TRE', 'DIF', 'FU', 'LO'],
-    ['GAI SP', 'Blanketflower', 'Gaillardia Aristata', 'PER', 'EAS', 'FP', 'LM'],
-    ['BER LYR', 'Chocolate Flower', 'Berlanderia Lyrata', 'PER', 'EAS', 'FP', 'LO'],
-    ['BAI MUL', 'Desert Marigold', 'Baileya Multiradiata', 'PER', 'EAS', 'FU', 'VL'],
-    ['PEN EAT', 'Firecracker Penstemon', 'Penstemon Eatonii', 'PER', 'EAS', 'FP', 'LM'],
-    ['CIR NEO', 'New Mexico Thistle', 'Cirsium Neomexicanum', 'PER', 'EAS', 'FP', 'LO'],
-    ['PEN PAR', 'Parry\'s Penstemon', 'Penstemon Parryi', 'PER', 'EAS', 'FU', 'LO'],
-    ['DIE SP', 'Tansy Aster', 'Dieteria Sp.', 'PER', 'EAS', 'FP', 'LO'],
-    ['DAT WRI', 'Sacred Datura', 'Datura Wrightii', 'PER', 'EAS', 'FP', 'LO'],
-    ['MAU ANT', 'Snapdragon Vine', 'Maurandella Antirrhiniflora', 'VIN', 'EAS', 'FP', 'LM'],
-    ['ARI PUR', 'Purple Threeawn', 'Aristida Purpurea', 'GRA', 'EAS', 'FU', 'LO']
+    ['COR TIN', 'Plains Coreopsis', 'Coreopsis Tinctoria', 'ANN', 'EAS', 'FU', 'MO', 'GO', 'BF'],
+    ['PRO PAR', 'Devil\'s Claw', 'Proboscidea Parviflora', 'ANN', 'MED', 'FP', 'LM', 'GO', 'NHB'],
+    ['BOU CUR', 'Side Oats Gramma', 'Bouteloua Curtipendula', 'GRA', 'EAS', 'FP', 'LO', 'GO', 'NBF'],
+    ['HIL RIG', 'Big Galleta Grass', 'Hilaria Rigda', 'GRA', 'EAS', 'FU', 'LO', 'GO', 'OTH'],
+    ['CON GRE', 'Gregg\'s Mistflower', 'Concoclinium Greggi', 'GRO', 'EAS', 'PA', 'MO', 'CC', 'BF'],
+    ['BAH PAR', 'Parish\'s Goldeneye', 'Bahiopsis Parishii', 'SHR', 'EAS', 'FU', 'LM', 'GO', 'BF'],
+    ['VAU CAL', 'Arizona Rosewood', 'Vauquelinia Californica', 'SHR', 'EAS', 'FP', 'LO', 'GO', 'BF'],
+    ['ABU PAL', 'Superstition Mallow', 'Abutilon Palmeri', 'SHR', 'EAS', 'FU', 'LO', 'GO', 'BF'],
+    ['ENC FAR', 'Brittlebush', 'Encelia Farinosa var Phenicodonta', 'SHR', 'EAS', 'FU', 'VL', 'GO', 'BF'],
+    ['DOD VIS', 'Hopbush', 'Dodonaea Viscosa', 'SHR', 'MED', 'FU', 'LO', 'GO', 'OTH'],
+    ['CAL ERI', 'Pink Fairy Duster', 'Calliandra Eriphylla', 'SHR', 'MED', 'FU', 'LO', 'GO', 'HBF'],
+    ['ACO WRI', 'Pink Perezia', 'Acourtia Wrightii', 'SHR', 'UNK', 'PA', 'MO', 'CC', 'OTH'],
+    ['ABU INC', 'Pelotazo', 'Abutilon Incanum', 'SHR', 'UNK', 'FU', 'LO', 'GO', 'BF'],
+    ['BEB JUN', 'Rough Sweetbush', 'Bebbia Juncea Aspera', 'SHR', 'EAS', 'FP', 'LO', 'CC', 'BF'],
+    ['SPH AMB', 'Desert Globemallow', 'Sphaeralcea Ambigua', 'SHR', 'EAS', 'FU', 'VL', 'CC', 'NBF'],
+    ['GOS THU', 'Wild Cotton', 'Gossypium Thurberi', 'SHR', 'UNK', 'FP', 'LO', 'GO', 'OTH'],
+    ['THY PEN', 'Paralenna', 'Thymophylia Pentachaeta', 'SUB', 'EAS', 'FP', 'LO', 'CC', 'NBF'],
+    ['ERI DIV', 'Spreading Daisy', 'Erigeron Divergens', 'SUB', 'EAS', 'FP', 'LO', 'CC', 'BF'],
+    ['SEN COV', 'Desert Senna', 'Senna Covesii', 'SUB', 'EAS', 'FU', 'VL', 'CC', 'BF'],
+    ['PRO VEL', 'Velvet Mesquite', 'Prosopis Velutina', 'TRE', 'MED', 'FU', 'LO', 'GO', 'NBF'],
+    ['PAR FLO', 'Blue Paloverde', 'Parkinsonia Florida', 'TRE', 'DIF', 'FU', 'LO', 'GO', 'OTH'],
+    ['STR ODO', 'Screwbean Mesquite', 'Strombocarpa Odorata', 'TRE', 'EAS', 'UNK', 'LO', 'GO', 'NBF'],
+    ['CHI LIN', 'Desert Willow', 'Chilopsis Linearis', 'TRE', 'EAS', 'FU', 'LO', 'GO', 'HBF'],
+    ['CHI LIN ARC', 'Native Desert Willow', 'Chilopsis Linearis Arcuata', 'TRE', 'EAS', 'FU', 'LO', 'GO', 'HBF'],
+    ['OLN TES', 'Ironwood', 'Olneya Tesota', 'TRE', 'MED', 'FU', 'LO', 'GO', 'BF'],
+    ['PAR MIC', 'Foothills Palo Verde', 'Parkinsonia Microphylla', 'TRE', 'DIF', 'FU', 'LO', 'GO', 'OTH'],
+    ['GAI SP', 'Blanketflower', 'Gaillardia Aristata', 'PER', 'EAS', 'FP', 'LM', 'CC', 'NB'],
+    ['BER LYR', 'Chocolate Flower', 'Berlanderia Lyrata', 'PER', 'EAS', 'FP', 'LO', 'CC', 'OTH'],
+    ['BAI MUL', 'Desert Marigold', 'Baileya Multiradiata', 'PER', 'EAS', 'FU', 'VL', 'GO', 'NB'],
+    ['PEN EAT', 'Firecracker Penstemon', 'Penstemon Eatonii', 'PER', 'EAS', 'FP', 'LM', 'GO', 'NH'],
+    ['CIR NEO', 'New Mexico Thistle', 'Cirsium Neomexicanum', 'PER', 'EAS', 'FP', 'LO', 'GO', 'NBF'],
+    ['PEN PAR', 'Parry\'s Penstemon', 'Penstemon Parryi', 'PER', 'EAS', 'FU', 'LO', 'GO', 'NHB'],
+    ['DIE SP', 'Tansy Aster', 'Dieteria Sp.', 'PER', 'EAS', 'FP', 'LO', 'GO', 'OTH'],
+    ['DAT WRI', 'Sacred Datura', 'Datura Wrightii', 'PER', 'EAS', 'FP', 'LO', 'GO', 'OTH'],
+    ['MAU ANT', 'Snapdragon Vine', 'Maurandella Antirrhiniflora', 'VIN', 'EAS', 'FP', 'LM', 'CC', 'HBF'],
+    ['ARI PUR', 'Purple Threeawn', 'Aristida Purpurea', 'GRA', 'EAS', 'FU', 'LO', 'GO', 'NBF']
 ]
 
 # list of plant classifications
@@ -86,12 +86,13 @@ plant_size_list = [
 # lists wildlife benefit information
 plant_wildlife_benefits_list = [
     ['NB', 'Native Bees'],
-    ['NH', 'Native Bees and Hummingbirds']
+    ['NH', 'Native Bees and Hummingbirds'],
     ['HB', 'Hummingbirds'],
-    ['HB', 'Hummingbirds and Butterflies'],
-    ['BF', 'Butterflies']
-    ['NB', 'Native Bees and Butterflies'],
-    ['NHB', 'Native Bess, Hummingbirds, and Butterflies']
+    ['HBF', 'Hummingbirds and Butterflies'],
+    ['BF', 'Butterflies'],
+    ['NBF', 'Native Bees and Butterflies'],
+    ['NHB', 'Native Bess, Hummingbirds, and Butterflies'],
+    ['OTH', 'Other']
 ]
 
 # list of plant profile images
@@ -135,7 +136,7 @@ plant_profile_imgs_list = [
 ]
 
 # dataframe of plant profiles
-plant_profiles_df = pd.DataFrame(plant_profiles_list, columns=['Plant ID', 'Common Name', 'Botanical Name', 'Type ID', 'Difficulty ID', 'Sun Amt ID', 'Water Amt ID', 'Plant Size', 'Wildlife Benefit'])
+plant_profiles_df = pd.DataFrame(plant_profiles_list, columns=['Plant ID', 'Common Name', 'Botanical Name', 'Type ID', 'Difficulty ID', 'Sun Amt ID', 'Water Amt ID', 'Plant Size ID', 'Wildlife Benefit ID'])
 
 # dataframe of plant classifications
 plant_types_df = pd.DataFrame(plant_types_list, columns=['Type ID', 'Type'])
@@ -156,7 +157,7 @@ plant_size_df = pd.DataFrame(plant_size_list, columns=['Plant Size ID', 'PlantSi
 plant_size_options = pd.DataFrame(plant_size_df['PlantSize'])
 
 # dataframe of wildlife benefit information
-plant_wildlife_benefits_df = pd.DataFrame(plant_wildlife_benefits_list, columns=['Wildlife Benefit ID', 'Wildlife Benefit'])
+plant_wildlife_benefits_df = pd.DataFrame(plant_wildlife_benefits_list, columns=['Wildlife Benefit ID', 'WildlifeBenefit'])
 
 # dataframe of plant profile images
 plant_profile_imgs_df = pd.DataFrame(plant_profile_imgs_list, columns=['Plant ID', 'Img', 'Author'])
@@ -171,7 +172,7 @@ full_plant_profiles_df = pd.merge(
                 pd.merge(
                     pd.merge(
                         pd.merge(plant_profiles_df, plant_profile_imgs_df, how='inner', on='Plant ID'),
-                        plant_water_amt_df, how='inner', on='Water Amt ID'), 
+                    plant_water_amt_df, how='inner', on='Water Amt ID'), 
                 plant_sun_amt_df, how='inner', on='Sun Amt ID'), 
             plant_difficulty_df, how='inner', on='Difficulty ID'), 
         plant_types_df, how='inner', on='Type ID'
