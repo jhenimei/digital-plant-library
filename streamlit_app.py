@@ -43,25 +43,34 @@ with find_plants_tab:
 
         # PLANT CRITERIA
         # type criteria
-        plant_type = st.selectbox("The type of plant I am looking for is...", ["an annual", "a grass", "a groundcover", "a perennial", "a shrub", "a subshrub", "a tree", "a vine", "any type of plant"], index=None, placeholder="Select a Plant Type")
+        plant_type = st.selectbox("The type of plant I am looking for is...", [
+            "an annual (short-lived)", 
+            "a perennial (can live for more than 2 years)",  
+            "a tree (plants taller than 15ft)", 
+            "a shrub (3-15ft tall plants)", 
+            "a subshrub (2ft tall or shorter shrubs)", "a vine (climbing plants)", 
+            "grass (flowering plants with narrow leaves)", 
+            "groundcover (grows low across the ground)", 
+            "any type of plant"
+            ], index=None, placeholder="Select a Plant Type")
 
         # gets plant type value for filter
-        if plant_type == "an annual":
+        if plant_type == "an annual (short-lived)":
             type_value = 'Annual'
-        elif plant_type == "a grass":
-            type_value = 'Grass'
-        elif plant_type == "a groundcover":
-            type_value = 'Groundcover'
-        elif plant_type == "a perennial":
+        elif plant_type == "a perennial (can live for more than 2 years)":
             type_value = 'Perennial'
-        elif plant_type == "a shrub":
-            type_value = 'Shrub'
-        elif plant_type == "a subshrub":
-            type_value = 'Subshrub'
-        elif plant_type == "a tree":
+        elif plant_type == "a tree (plants taller than 15ft)":
             type_value = 'Tree'
-        elif plant_type == "a vine":
+        elif plant_type == "a shrub (3-15ft tall plants)":
+            type_value = 'Shrub'
+        elif plant_type == "a subshrub (2ft tall or shorter shrubs)":
+            type_value = 'Subshrub'
+        elif plant_type == "a vine (climbing plants)":
             type_value = 'Vine'
+        elif plant_type == "grass (flowering plants with narrow leaves)":
+            type_value = 'Grass'
+        elif plant_type == "groundcover (grows low across the ground)":
+            type_value = 'Groundcover'
         elif plant_type == "any type of plant":
             type_value = 'all'
 
@@ -130,10 +139,9 @@ with find_plants_tab:
         if plant_water_amount == None or water_amount_value == 'all':
             qry += ''
         elif qry == '':
-            qry += 'WaterAmt in "' + water_amount_value + '"'
+            qry += f"WaterAmt in {water_amount_value}"
         elif qry != '':
-            qry += ' and WaterAmt in "' + water_amount_value + '" '
-
+            qry += f" and WaterAmt in {water_amount_value}"
 
         # wildlife benefit criteria
         plant_wildlife = st.selectbox("I also want the plant to be friendly to...", ["native bees", "hummingbirds", "butterflies", "any native wildlife"], index=None, placeholder="Select the native wildlife you want to attract")
@@ -172,9 +180,9 @@ with find_plants_tab:
         if plant_difficulty == None:
             qry += ''
         elif qry == '':
-            qry += 'Difficulty in "' + difficulty_value + '"'
+            qry += f"Difficulty in {difficulty_value}"
         elif qry != '':
-            qry += ' and Difficulty in "' + difficulty_value + '" '
+            qry += f" and Difficulty in {difficulty_value}"
 
 
         # SEARCH BUTTON

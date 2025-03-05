@@ -36,7 +36,8 @@ plant_profiles_list = [
     ['PEN PAR', 'Parry\'s Penstemon', 'Penstemon Parryi', 'PER', 'EAS', 'FU', 'LO'],
     ['DIE SP', 'Tansy Aster', 'Dieteria Sp.', 'PER', 'EAS', 'FP', 'LO'],
     ['DAT WRI', 'Sacred Datura', 'Datura Wrightii', 'PER', 'EAS', 'FP', 'LO'],
-    ['MAU ANT', 'Snapdragon Vine', 'Maurandella Antirrhiniflora', 'VIN', 'EAS', 'FP', 'LM']
+    ['MAU ANT', 'Snapdragon Vine', 'Maurandella Antirrhiniflora', 'VIN', 'EAS', 'FP', 'LM'],
+    ['ARI PUR', 'Purple Threeawn', 'Aristida Purpurea', 'GRA', 'EAS', 'FU', 'LO']
 ]
 
 # list of plant classifications
@@ -76,6 +77,23 @@ plant_water_amt_list = [
     ['UNK', 'Unknown']
 ]
 
+# lists of plant size information
+plant_size_list = [
+    ['GO', 'Ground Only'],
+    ['CC', 'Container Compatible']
+]
+
+# lists wildlife benefit information
+plant_wildlife_benefits_list = [
+    ['NB', 'Native Bees'],
+    ['NH', 'Native Bees and Hummingbirds']
+    ['HB', 'Hummingbirds'],
+    ['HB', 'Hummingbirds and Butterflies'],
+    ['BF', 'Butterflies']
+    ['NB', 'Native Bees and Butterflies'],
+    ['NHB', 'Native Bess, Hummingbirds, and Butterflies']
+]
+
 # list of plant profile images
 plant_profile_imgs_list = [
     ['COR TIN', "./plant_profile_imgs/cor_tin.jpg", "By Danielle Carlock"],
@@ -113,10 +131,11 @@ plant_profile_imgs_list = [
     ['DIE SP', "./plant_profile_imgs/die_sp.jpg", "By ezpixels"], 
     ['DAT WRI', "./plant_profile_imgs/dat_wri.jpg", "By unknown"], 
     ['MAU ANT', "./plant_profile_imgs/mau_ant.jpg", "By Danielle Carlock"], 
+    ['ARI PUR', "./plant_profile_imgs/ari_pur.jpg", "By Steve Jones (iNaturalist)"]
 ]
 
 # dataframe of plant profiles
-plant_profiles_df = pd.DataFrame(plant_profiles_list, columns=['Plant ID', 'Common Name', 'Botanical Name', 'Type ID', 'Difficulty ID', 'Sun Amt ID', 'Water Amt ID'])
+plant_profiles_df = pd.DataFrame(plant_profiles_list, columns=['Plant ID', 'Common Name', 'Botanical Name', 'Type ID', 'Difficulty ID', 'Sun Amt ID', 'Water Amt ID', 'Plant Size', 'Wildlife Benefit'])
 
 # dataframe of plant classifications
 plant_types_df = pd.DataFrame(plant_types_list, columns=['Type ID', 'Type'])
@@ -132,8 +151,16 @@ plant_sun_amt_options = pd.DataFrame(plant_sun_amt_df['SunAmt'])
 plant_water_amt_df = pd.DataFrame(plant_water_amt_list, columns=['Water Amt ID', 'WaterAmt'])
 plant_water_amt_options = pd.DataFrame(plant_water_amt_df['WaterAmt'])
 
+# dataframe of plant size information
+plant_size_df = pd.DataFrame(plant_size_list, columns=['Plant Size ID', 'PlantSize'])
+plant_size_options = pd.DataFrame(plant_size_df['PlantSize'])
+
+# dataframe of wildlife benefit information
+plant_wildlife_benefits_df = pd.DataFrame(plant_wildlife_benefits_list, columns=['Wildlife Benefit ID', 'Wildlife Benefit'])
+
 # dataframe of plant profile images
 plant_profile_imgs_df = pd.DataFrame(plant_profile_imgs_list, columns=['Plant ID', 'Img', 'Author'])
+
 
 # generate full plant profile dataframe
 
@@ -141,11 +168,15 @@ full_plant_profiles_df = pd.merge(
     pd.merge(
         pd.merge(
             pd.merge(
-                pd.merge(plant_profiles_df, plant_profile_imgs_df, how='inner', on='Plant ID'),
-                plant_water_amt_df, how='inner', on='Water Amt ID'), 
-        plant_sun_amt_df, how='inner', on='Sun Amt ID'), 
-    plant_difficulty_df, how='inner', on='Difficulty ID'), 
-plant_types_df, how='inner', on='Type ID'
+                pd.merge(
+                    pd.merge(
+                        pd.merge(plant_profiles_df, plant_profile_imgs_df, how='inner', on='Plant ID'),
+                        plant_water_amt_df, how='inner', on='Water Amt ID'), 
+                plant_sun_amt_df, how='inner', on='Sun Amt ID'), 
+            plant_difficulty_df, how='inner', on='Difficulty ID'), 
+        plant_types_df, how='inner', on='Type ID'
+        ), plant_size_df, how='inner', on='Plant Size ID'
+    ), plant_wildlife_benefits_df, how='inner', on='Wildlife Benefit ID'
 )
 
 # function to filter plant profiles
