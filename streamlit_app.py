@@ -12,7 +12,7 @@ The plants in this website can be obtained as seeds from the **Maricopa Native S
 
 st.markdown(site_description)
 
-st.warning("Site is currently undergoing maintenance. Some features may not work correctly. We will be fixed by March 5th, thank you for your patience!")
+st.warning("This is an ongoing student project, the site may change periodically and more native plants will be added later!")
 
 
 # INITIALIZING VARIABLES
