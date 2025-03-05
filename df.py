@@ -91,7 +91,7 @@ plant_wildlife_benefits_list = [
     ['HBF', 'Hummingbirds and Butterflies'],
     ['BF', 'Butterflies'],
     ['NBF', 'Native Bees and Butterflies'],
-    ['NHB', 'Native Bess, Hummingbirds, and Butterflies'],
+    ['NHB', 'Native Bees, Hummingbirds, and Butterflies'],
     ['OTH', 'Other']
 ]
 
